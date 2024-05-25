@@ -1,0 +1,64 @@
+************************************************************************************************
+*************************************Creation of Clean Data*************************************
+************************************************************************************************
+
+The initial data is composed of 5 tables: "brands", "finance", "info", "reviews" and "traffic". The "traffic" table will be removed directly from the structure of the model since it only shows as useful information the working period of the shoe store, from March 1, 2018 to April 12, 2020. The remaining 4 tables will have redundant fields removed and those fields that will be retained will be renamed. Empty cells will be Null and, finally, all records containing a Null value will be deleted using the following code: 
+
+--DELETE FROM "Table_Name" WHERE "Field_Name" is Null
+
+From the fields of the 4 tables, which were previously cleaned, a new table will be built with the following fields: Model_ID, Model_Serial, Model, Brand, Selling_Price(USD), Discounted_Price(USD), Discount(%), Total_Sales(USD), Units_Sold, Reviews, Interval_ID. It is important to make sure that the variable of each field in the new table is the correct one, that is, that fields with integer values have variable “INTEGER”, fields with decimal values have variable “NUMERIC” and text fields have variable “TEXT”.
+
+The fields that will be transferred in their entirety from the 4 initial clean tables to the new table are: Model_Serial, Model, Brand, Selling_Price(USD), Discounted_Price(USD), Total_Sales(USD) and Reviews. A field called Model_ID will be created which will be the auto-incrementable primary key. To pass the fields from the source table to the new table the following code is used:
+
+--INSERT INTO New_Table (New_Table_Field)
+--SELECT Source_Field
+--FROM Source_Table
+
+The calculated fields of the new table are: Discount(%), Units_Sold and Inteval_ID. The following will show the code with the calculation corresponding to these fields and how they are inserted in the new table.
+
+*******************************************
+******Calculated field "Discount(%)"******
+*******************************************
+
+--UPDATE New_Table
+--SET "Discount(%)" = ( ("Selling_Price(USD)" - "Discounted_Price(USD)")*100)/"Selling_Price(USD)"
+
+****************************************
+*****Calculated field "Units_Sold"*****
+****************************************
+
+--UPDATE New_Table
+--SET "Units_Sold" = "Total_Sales(USD)"/"Discounted_Price(USD)"
+
+******************************************
+******Calculated field "Inteval_ID"******
+******************************************
+
+--*****Units_Sold >= 0 and Units_Sold < 50*****
+--UPDATE New_Table
+--SET "Inteval_ID" = 3
+--WHERE "Units_Sold" >= 0 
+--AND "Units_Sold" < 50
+
+--*****Units_Sold >= 50 and Units_Sold < 100*****
+--UPDATE New_Table
+--SET "Inteval_ID" = 2
+--WHERE "Units_Sold" >= 50
+--AND "Units_Sold" < 100
+
+--*****Units_Sold >= 100***** 
+--UPDATE New_Table
+--SET "Inteval_ID" = 1
+--WHERE "Units_Sold" >= 100
+
+Finally, the table called “Zapateria_Deportiva_1” is created, which is the same “New_Table”, only sorted by Units_Sold in descending order. From the table “Zapateria_Deportiva_1” the data model that will be exported to Power BI for the creation of the dashboard will be elaborated.
+_________________________________________________________________________________________________________________________
+
+Important note: There is an error in the Selling_Price(USD) field, where there are values equal to zero for this field, while for these same values there are values of the Discounted_Price(USD) field greater than zero, which is incongruent, since all products on sale must have prices and these must always be greater than or equal to the discounted prices of these same products. To solve this error, the following codes are executed:
+
+--UPDATE "Zapateria_Deportiva_1"
+--SET "Selling_Price(USD)" = "Discounted_Price(USD)"
+--WHERE "Selling_Price(USD)" = 0
+
+--UPDATE "Zapateria_Deportiva_1"
+--SET "Discount(%)" = ( ("Selling_Price(USD)" - "Discounted_Price(USD)")*100)/"Selling_Price(USD)"

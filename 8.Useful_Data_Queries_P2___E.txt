@@ -1,0 +1,97 @@
+************
+***Models***
+************
+
+--Models -> (Units_Sold >= 0)
+--SELECT * FROM Zapateria_Deportiva_2
+
+--Modelos -> (50 <= Units_Sold < 100)
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 50 
+--AND Units_Sold < 100
+
+--Modelos -> (Units_Sold >= 100)
+--SELECT * FROM Zapateria_Deportiva_2 
+--WHERE Units_Sold >= 100
+
+
+
+***********
+***Sales***
+***********
+
+--Total_Sales(USD) -> (Units_Sold >= 0)
+--SELECT SUM("Total_Sales(USD)")
+--FROM Zapateria_Deportiva_2
+
+--Total_Sales(USD) -> (50 <= Units_Sold < 100)
+--SELECT SUM("Total_Sales(USD)") 
+--FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 50 
+--AND Units_Sold < 100
+
+--Total_Sales(USD) -> (Units_Sold >= 100)
+--SELECT SUM("Total_Sales(USD)") 
+--FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 100
+
+
+
+***************
+***Discounts***
+***************
+
+--Models_with_Discount -> (Units_Sold >= 0)
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE "Discount(%)" != 0
+
+--Models_without_Discount -> (Units_Sold >= 0)
+--SELECT * FROM Zapateria_Deportiva_2 
+--WHERE "Discount(%)" = 0
+
+--Models_with_Discount -> (50 <= Units_Sold < 100)
+--SELECT * FROM Zapateria_Deportiva_2 
+--WHERE "Units_Sold" >= 50 
+--AND Units_Sold < 100
+--AND "Discount(%)" != 0
+
+--Models_without_Discount -> (50 <= Units_Sold < 100)
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE "Units_Sold" >= 50 
+--AND Units_Sold < 100
+--AND "Discount(%)" = 0
+
+--Models_with_Discount -> (Units_Sold >= 100)
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 100
+--AND "Discount(%)" != 0
+
+--Models_without_Discount -> (Units_Sold >= 100)
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 100
+--AND "Discount(%)" = 0
+
+
+
+***********
+**Reviews**
+***********
+
+--Models_with_Reviews
+--SELECT * FROM Zapateria_Deportiva_2
+--WHERE "Reviews" != 0
+
+--Total_Reviews -> (Units_Sold >= 0)
+--SELECT SUM("Reviews") 
+--FROM Zapateria_Deportiva_2
+
+--Total_Reviews -> (50 <= Units_Sold < 100)
+--SELECT SUM("Reviews") 
+--FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 50 
+--AND Units_Sold < 100
+
+--Total_Reviews -> (Units_Sold >= 100)
+--SELECT SUM("Reviews") 
+--FROM Zapateria_Deportiva_2
+--WHERE Units_Sold >= 100  
